@@ -1,0 +1,11 @@
+;; Real-world organization identity/contact.
+;; :head-role is institutional title only -- no personal names.
+{:name-en "Korea Chamber of Commerce and Industry (KCCI, 대한상공회의소)"
+ :abbreviation "KCCI"
+ :official-url "https://www.korcham.net/"
+ :wikidata "Q12592604"
+ :isic "9411"
+ :country "KOR"
+ :established-date "1884"
+ :head-role-note "institutional office title only (Chairman); personal names of current/former office-holders incidentally encountered but never persisted here"
+ :sourced-from "korcham.net's own domain uses an old-style ASP site structure that could not be navigated to a specific founding-history page this tick (main page rendered but had no historical content; a guessed history-page URL 404'd). Verified instead directly (WebFetch) against en.wikipedia.org's own article, which states verbatim: 'The Korea Chamber of Commerce and Industry traces its origins to the Seoul (Hanseong) Chamber of Commerce, which was founded in 1884' and 'With the passage of the Chamber of Commerce Act in 1952, it became an official statutory body'. The 1884 date is independently corroborated by Wikidata Q12592604's own inception statement, which itself cites the Encyclopedia of Korean Culture as its source."}
