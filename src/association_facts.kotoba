@@ -18,73 +18,378 @@
 
 (defn association-covered? [a :string] :bool (string=? a "kcci"))
 
-(defn entry-count [a :string] :i64 (if (association-covered? a) 2 0))
+(defn entry-count [a :string] :i64 (if (association-covered? a) 15 0))
 
 (defn valid-entry? [a :string i :i64] :bool
-  (if (association-covered? a) (if (< i 0) false (< i 2)) false))
+  (if (association-covered? a) (if (< i 0) false (< i 15)) false))
 
 (defn entry-field [a :string i :i64 f :string] [:option :string]
   (if (valid-entry? a i)
-    (if (= i 0)
+    (cond
+      (= i 0)
       (cond
         (string=? f "id") (option-some-of [:option :string] "kcci.predecessor-seoul-chamber-1884")
-        (string=? f "title") (option-some-of [:option :string] "Korea Chamber of Commerce and Industry (KCCI) traces its origins to the Seoul (Hanseong) Chamber of Commerce, founded in 1884 (Wikipedia, corroborated by Wikidata Q12592604 inception statement citing the Encyclopedia of Korean Culture)")
+        (string=? f "title") (option-some-of [:option :string] "KCCI's earliest predecessor, the Hanseong Chamber of Commerce (한성상업회의소), was established in 1884 -- the year KCCI's own chronology dates its institutional history from")
         (string=? f "association") (option-some-of [:option :string] "kcci")
         (string=? f "isic") (option-some-of [:option :string] "9411")
         (string=? f "country") (option-some-of [:option :string] "KOR")
         (string=? f "kind") (option-some-of [:option :string] "governance-program")
-        (string=? f "url") (option-some-of [:option :string] "https://en.wikipedia.org/wiki/Korea_Chamber_of_Commerce_and_Industry")
-        (string=? f "url-provenance") (option-some-of [:option :string] "wikipedia-corroborated")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
         (string=? f "established-date") (option-some-of [:option :string] "1884")
-        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-07-17")
-        :else (option-none-of [:option :string])
-        )
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 1)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.commercial-conference-regulations-1895")
+        (string=? f "title") (option-some-of [:option :string] "The Commercial Conference Regulations (상무회의소규례) were enacted on 10 November 1895, the first legal framework for Korean chambers of commerce")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "statute")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1895-11-10")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 2)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.joseon-chamber-founded-1946")
+        (string=? f "title") (option-some-of [:option :string] "The Joseon Chamber of Commerce and Industry (조선상공회의소) was founded on 19 May 1946")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1946-05-19")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 3)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.gyeongseong-chamber-founded-1946")
+        (string=? f "title") (option-some-of [:option :string] "The Gyeongseong Chamber of Commerce and Industry (경성상공회의소) was founded on 26 September 1946")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1946-09-26")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 4)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.renamed-kcci-1948")
+        (string=? f "title") (option-some-of [:option :string] "On 23 July 1948 the bodies were renamed the Korea Chamber of Commerce and Industry (대한상공회의소) and the Seoul Chamber of Commerce and Industry (서울상공회의소), the names in use today")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "constitutive-instrument")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1948-07-23")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 5)
       (cond
         (string=? f "id") (option-some-of [:option :string] "kcci.statutory-body-1952")
-        (string=? f "title") (option-some-of [:option :string] "With the passage of the Chamber of Commerce Act in 1952, KCCI became an official statutory body (Wikipedia)")
+        (string=? f "title") (option-some-of [:option :string] "The Chambers of Commerce and Industry Act (상공회의소법) was enacted on 20 December 1952, making KCCI an official statutory body")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "statute")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1952-12-20")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 6)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.commerce-industry-day-1974")
+        (string=? f "title") (option-some-of [:option :string] "The first Commerce and Industry Day (제1회 상공의 날) was held on 20 March 1974")
         (string=? f "association") (option-some-of [:option :string] "kcci")
         (string=? f "isic") (option-some-of [:option :string] "9411")
         (string=? f "country") (option-some-of [:option :string] "KOR")
         (string=? f "kind") (option-some-of [:option :string] "governance-program")
-        (string=? f "url") (option-some-of [:option :string] "https://en.wikipedia.org/wiki/Korea_Chamber_of_Commerce_and_Industry")
-        (string=? f "url-provenance") (option-some-of [:option :string] "wikipedia-corroborated")
-        (string=? f "established-date") (option-some-of [:option :string] "1952")
-        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-07-17")
-        :else (option-none-of [:option :string])
-        )
-      )
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1974-03-20")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 7)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.centenary-1984")
+        (string=? f "title") (option-some-of [:option :string] "KCCI marked the centenary of the Korean chamber-of-commerce system (상공회의소 창립 100주년) on 31 October 1984")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1984-10-31")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 8)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.ean-barcode-1988")
+        (string=? f "title") (option-some-of [:option :string] "KCCI joined EAN and began issuing Korea's distribution standard codes (EAN 가입 및 유통표준코드 보급) on 5 July 1988")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1988-07-05")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 9)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.vocational-training-1994")
+        (string=? f "title") (option-some-of [:option :string] "KCCI took over eight vocational training institutes and began its vocational training programme (8개 직업훈련원 인수 및 직업훈련사업) on 1 April 1994")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "1994-04-01")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 10)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.wcc-seoul-2001")
+        (string=? f "title") (option-some-of [:option :string] "KCCI hosted the 2nd World Chambers Congress (제2차 세계 상공회의소총회) in Seoul on 7 June 2001")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "2001-06-07")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 11)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.sustainability-institute-2005")
+        (string=? f "title") (option-some-of [:option :string] "KCCI established the Korea Business Council for Sustainable Development (지속가능경영원) on 16 February 2005")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "2005-02-16")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 12)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.sgi-2018")
+        (string=? f "title") (option-some-of [:option :string] "KCCI established the Sustainable Growth Initiative (SGI) on 10 May 2018")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "governance-program")
+        (string=? f "url") (option-some-of [:option :string] "https://www.korcham.net/nCham/Service/Kcci/appl/History.asp")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-korcham-net")
+        (string=? f "established-date") (option-some-of [:option :string] "2018-05-10")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 13)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.chambers-act-in-force-2026")
+        (string=? f "title") (option-some-of [:option :string] "The Chambers of Commerce and Industry Act (상공회의소법) in force is Act No. 21152, promulgated 2 December 2025 and effective 3 March 2026, administered by the Ministry of Trade and Industry -- KCCI's standing statutory basis")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "statute")
+        (string=? f "url") (option-some-of [:option :string] "https://www.law.go.kr/법령/상공회의소법")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-law-go-kr")
+        (string=? f "established-date") (option-some-of [:option :string] "2026-03-03")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      (= i 14)
+      (cond
+        (string=? f "id") (option-some-of [:option :string] "kcci.chambers-act-enforcement-decree-2025")
+        (string=? f "title") (option-some-of [:option :string] "The Enforcement Decree of the Chambers of Commerce and Industry Act (상공회의소법 시행령) in force is Presidential Decree No. 35803, promulgated and effective 1 October 2025")
+        (string=? f "association") (option-some-of [:option :string] "kcci")
+        (string=? f "isic") (option-some-of [:option :string] "9411")
+        (string=? f "country") (option-some-of [:option :string] "KOR")
+        (string=? f "kind") (option-some-of [:option :string] "statute")
+        (string=? f "url") (option-some-of [:option :string] "https://www.law.go.kr/법령/상공회의소법시행령")
+        (string=? f "url-provenance") (option-some-of [:option :string] "official-law-go-kr")
+        (string=? f "established-date") (option-some-of [:option :string] "2025-10-01")
+        (string=? f "retrieved-at") (option-some-of [:option :string] "2026-09-10")
+        :else (option-none-of [:option :string]))
+
+      :else (option-none-of [:option :string]))
     (option-none-of [:option :string])))
 
 (defn topic-count [a :string i :i64] :i64
   (if (valid-entry? a i)
-    (if (= i 0) 1 (if (= i 1) 1 0))
+    (cond
+      (= i 0) 1
+      (= i 1) 2
+      (= i 2) 1
+      (= i 3) 1
+      (= i 4) 1
+      (= i 5) 2
+      (= i 6) 1
+      (= i 7) 1
+      (= i 8) 1
+      (= i 9) 1
+      (= i 10) 1
+      (= i 11) 1
+      (= i 12) 1
+      (= i 13) 2
+      (= i 14) 2
+      :else 0)
     0))
 
 (defn topic [a :string i :i64 t :i64] [:option :string]
   (if (valid-entry? a i)
-    (if (= i 0)
-      (if (= t 0) (option-some-of [:option :string] "governance") (option-none-of [:option :string]))
-    (if (= i 1)
-      (if (= t 0) (option-some-of [:option :string] "governance") (option-none-of [:option :string]))
-    (option-none-of [:option :string])))
+    (cond
+      (= i 0)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 1)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        (= t 1) (option-some-of [:option :string] "statute")
+        :else (option-none-of [:option :string]))
+
+      (= i 2)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 3)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 4)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 5)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        (= t 1) (option-some-of [:option :string] "statute")
+        :else (option-none-of [:option :string]))
+
+      (= i 6)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 7)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 8)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 9)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 10)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 11)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 12)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        :else (option-none-of [:option :string]))
+
+      (= i 13)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        (= t 1) (option-some-of [:option :string] "statute")
+        :else (option-none-of [:option :string]))
+
+      (= i 14)
+      (cond
+        (= t 0) (option-some-of [:option :string] "governance")
+        (= t 1) (option-some-of [:option :string] "statute")
+        :else (option-none-of [:option :string]))
+
+      :else (option-none-of [:option :string]))
     (option-none-of [:option :string])))
 
 (defn by-topic-count [a :string candidate :string] :i64
   (if (association-covered? a)
-    (if (string=? candidate "governance") 2 0)
+    (cond
+      (string=? candidate "governance") 15
+      (string=? candidate "statute") 4
+      :else 0)
     0))
 
 (defn by-topic-id [a :string candidate :string i :i64] [:option :string]
   (if (association-covered? a)
-    (if (= i 0)
-      (if (string=? candidate "governance") (entry-field a 0 "id") (option-none-of [:option :string]))
-      (option-none-of [:option :string]))
+    (cond
+      (string=? candidate "governance")
+      (cond
+        (= i 0) (entry-field a 0 "id")
+        (= i 1) (entry-field a 1 "id")
+        (= i 2) (entry-field a 2 "id")
+        (= i 3) (entry-field a 3 "id")
+        (= i 4) (entry-field a 4 "id")
+        (= i 5) (entry-field a 5 "id")
+        (= i 6) (entry-field a 6 "id")
+        (= i 7) (entry-field a 7 "id")
+        (= i 8) (entry-field a 8 "id")
+        (= i 9) (entry-field a 9 "id")
+        (= i 10) (entry-field a 10 "id")
+        (= i 11) (entry-field a 11 "id")
+        (= i 12) (entry-field a 12 "id")
+        (= i 13) (entry-field a 13 "id")
+        (= i 14) (entry-field a 14 "id")
+        :else (option-none-of [:option :string]))
+
+      (string=? candidate "statute")
+      (cond
+        (= i 0) (entry-field a 1 "id")
+        (= i 1) (entry-field a 5 "id")
+        (= i 2) (entry-field a 13 "id")
+        (= i 3) (entry-field a 14 "id")
+        :else (option-none-of [:option :string]))
+
+      :else (option-none-of [:option :string]))
     (option-none-of [:option :string])))
 
 (defn coverage-note [a :string] [:option :string]
   (if (association-covered? a)
     (option-some-of [:option :string]
-      "cloud-itonami-assoc-9411-kor-kcci Wave 0 (ADR-2607141700): 2 kcci entries seeded with an official citation. Extend the sovereign catalog; never fabricate a rule id/url.")
+      "cloud-itonami-assoc-9411-kor-kcci Wave 0 (ADR-2607141700): 15 kcci entries, every one cited to KCCI's own chronology on korcham.net or to law.go.kr. Extend the sovereign catalog; never fabricate a rule id/url.")
     (option-none-of [:option :string])))
 
 (defn main [] :i64 0)

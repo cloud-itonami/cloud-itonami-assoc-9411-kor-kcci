@@ -45,14 +45,63 @@ municipality
 ([`cloud-itonami-municipality-kor-seoul`](https://github.com/cloud-itonami/cloud-itonami-municipality-kor-seoul)),
 and association (this repo).
 
-`korcham.net`'s own domain uses an old-style ASP site structure that
-could not be navigated to a specific founding-history page this tick
-(the main page rendered but contained no historical content; a
-guessed history-page URL 404'd). Both entries here were instead
-directly WebFetch-verified against `en.wikipedia.org`'s own article,
-independently corroborated by Wikidata (Q12592604)'s own "inception"
-statement, which itself cites the Encyclopedia of Korean Culture
-(한국민족문화대백과사전) as its source.
+**Corrected 2026-09-10.** The catalog was originally seeded from
+Wikipedia because an earlier tick reported that `korcham.net` could
+not be navigated to a founding-history page and that a guessed
+history URL 404'd. The page does exist, and it is linked from
+`korcham.net`'s own home page:
+
+    https://www.korcham.net/nCham/Service/Kcci/appl/History.asp
+
+Reaching it needs no guessing — only following the site's own links.
+It carries KCCI's published chronology, which **confirms both facts
+the Wikipedia seeding had asserted** (the 1884 Hanseong Chamber of
+Commerce, and the Chambers of Commerce and Industry Act) and dates
+the Act precisely, to **20 December 1952**. Every historical entry
+now cites KCCI itself.
+
+### Verify a citation by content, not by status code
+
+Both cited hosts answer **HTTP 200 for paths that do not exist**:
+
+| probe | status | what comes back |
+|---|---|---|
+| `korcham.net/nCham/Service/Kcci/appl/History.asp` | 200 | the chronology |
+| `korcham.net/nCham/Service/Kcci/appl/HistoryX.asp` | **200** | `페이지를 찾을수 없습니다` (not found) |
+| `law.go.kr/법령/상공회의소법` | 200 | the Act |
+| `law.go.kr/법령/WRONG` | **200** | `국가법령정보센터 \| 오류페이지` |
+
+So a status check cannot tell a real citation from one that points
+at nothing — it passes either way. Check for a marker in the body.
+`korcham.net` is EUC-KR and `law.go.kr` is UTF-8, so read the bytes
+as sent before transcoding:
+
+    curl -s -L https://www.korcham.net/nCham/Service/Kcci/appl/History.asp \
+      | iconv -f EUC-KR -t UTF-8 | grep -c '1952. 12. 20'   # 1, not 0
+
+    curl -s -L 'https://www.law.go.kr/법령/상공회의소법' \
+      | grep -c '<title>상공회의소법</title>'                  # 1, not 0
+
+Run the same two commands against the wrong paths in the table: both
+still return 200, and both counts are 0. That difference is the
+check.
+
+### Statute entries
+
+The two statute entries cite 국가법령정보센터 (`law.go.kr`), the
+Ministry of Government Legislation's portal. Their numbers and dates
+were cross-checked against that portal's own open API, which returned
+the same values: the Act is 법률 제21152호 (promulgated 2025-12-02,
+effective 2026-03-03) and the Enforcement Decree is 대통령령 제35803호
+(promulgated and effective 2025-10-01), both administered by 산업통상부.
+
+### What is deliberately not here
+
+KCCI's chronology also lists chairman inaugurations. Those are the
+personal names of office-holders and are **not** persisted here, per
+`organization.edn`'s `:head-role-note`. `no-office-holder-is-named`
+in the test suite pins that.
+
 
 ## Scope
 
@@ -66,15 +115,21 @@ fabricate one.
 ## Data
 
 - `src/association/facts.cljc` — the catalog, source of truth.
+- `src/association_facts.kotoba` — the same catalog as Kotoba, so it
+  reaches the Kotoba oracle, wasm and both native ISAs.
 - `schema/association-rule.edn` — DataScript schema.
 - `data/datascript-tx.edn` — derived DataScript tx-data (query this
   alongside other `cloud-itonami`/`etzhayyim` compliance-fact sources via
   `com-junkawasaki/root`'s `scripts/compliance-fact-query.cljs`).
 
-Both entries directly WebFetch-verified against `en.wikipedia.org`'s
-own article: the 1884 founding of the Seoul (Hanseong) Chamber of
-Commerce (KCCI's earliest predecessor), and the 1952 Chamber of
-Commerce Act that made KCCI an official statutory body.
+15 entries across two topics (`:governance` 15, of which `:statute` 4),
+each citing `korcham.net` or `law.go.kr`. `clojure -M:test` checks that
+every entry carries a retrievable `https://` URL and a provenance naming
+the domain it was read from, that ids are unique, that no office-holder
+is named, that `data/datascript-tx.edn` still says what the catalog says,
+and that the Kotoba port matches the `.cljc` field by field for all four
+compile targets.
+
 
 ## License
 
