@@ -34,7 +34,11 @@
    "established-date" :association-rule/established-date
    "retrieved-at" :association-rule/retrieved-at})
 (def ^:private entries (vec (facts/spec-basis slug)))
-(def ^:private topic-order [["governance"] ["governance"]])
+(def ^:private topic-order
+  [["governance"] ["governance" "statute"] ["governance"] ["governance"]
+   ["governance"] ["governance" "statute"] ["governance"] ["governance"]
+   ["governance"] ["governance"] ["governance"] ["governance"] ["governance"]
+   ["governance" "statute"] ["governance" "statute"]])
 
 (deftest the-fixture-reads-a-real-catalog
   ;; An empty catalog compares equal to an empty port.
