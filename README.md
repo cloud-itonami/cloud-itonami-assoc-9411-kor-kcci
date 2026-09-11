@@ -123,7 +123,7 @@ fabricate one.
   `com-junkawasaki/root`'s `scripts/compliance-fact-query.cljs`).
 
 15 entries across two topics (`:governance` 15, of which `:statute` 4),
-each citing `korcham.net` or `law.go.kr`. `clojure -M:test` checks that
+each citing `korcham.net` or `law.go.kr`. `kbb -M:test` checks that
 every entry carries a retrievable `https://` URL and a provenance naming
 the domain it was read from, that ids are unique, that no office-holder
 is named, that `data/datascript-tx.edn` still says what the catalog says,
